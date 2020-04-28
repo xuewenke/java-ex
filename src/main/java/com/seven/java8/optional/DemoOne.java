@@ -1,6 +1,6 @@
 
 
-package com.seven.optional;
+package com.seven.java8.optional;
 
 /**
  *
