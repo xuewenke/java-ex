@@ -15,7 +15,8 @@ public class CacheBuilderDemo {
 
 
     public static void main(String[] args) throws Exception{
-
+        Cache<String, String> cache = simpleCache();
+        cache.put("",null);
     }
 
     @Test
