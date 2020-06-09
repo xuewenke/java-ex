@@ -1,5 +1,5 @@
 
-package com.seven.cache.guavacache;
+package com.x.atrs.cache.guavacache;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;

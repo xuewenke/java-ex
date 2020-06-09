@@ -1,7 +1,7 @@
 
 
 
-package com.seven.model;
+package com.x.atrs.model;
 
 import lombok.Data;
 

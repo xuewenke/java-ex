@@ -1,5 +1,5 @@
 
-package com.seven.util;
+package com.x.atrs.util;
 
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;

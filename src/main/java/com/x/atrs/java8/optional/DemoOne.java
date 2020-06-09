@@ -1,6 +1,6 @@
 
 
-package com.seven.java8.optional;
+package com.x.atrs.java8.optional;
 
 import org.testng.annotations.Test;
 

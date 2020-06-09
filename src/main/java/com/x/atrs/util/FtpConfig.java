@@ -6,7 +6,7 @@
  *
  */
 
-package com.seven.util;
+package com.x.atrs.util;
 
 import lombok.Data;
 

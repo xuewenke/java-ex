@@ -1,7 +1,7 @@
 
 
 
-package com.seven;
+package com.x.atrs;
 
 import org.testng.annotations.Test;
 

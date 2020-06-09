@@ -1,4 +1,4 @@
-package com.seven.concurrency.taskdispatcher.core;
+package com.x.atrs.concurrency.taskdispatcher.core;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
