@@ -1,7 +1,7 @@
 
 
 
-package com.x.atrs.model;
+package com.x.atrs.util.pojo;
 
 import lombok.Data;
 

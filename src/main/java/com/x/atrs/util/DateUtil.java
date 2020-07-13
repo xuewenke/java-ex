@@ -10,10 +10,14 @@ package com.x.atrs.util;
 
 import lombok.experimental.UtilityClass;
 
+import javax.annotation.Nonnull;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -40,14 +44,59 @@ public class DateUtil {
         }
     }
 
-    public LocalDate toLocalDate(Date date) {
-        Instant instant = date.toInstant();
-        ZoneId zoneId = ZoneId.systemDefault();
-        // atZone()方法返回在指定时区从此Instant生成的ZonedDateTime。
-        return instant.atZone(zoneId).toLocalDate();
+    private final String pattern = "yyyy-MM-dd HH:mm:ss";
+    private final DateTimeFormatter PATTERN_YMD_HMS = DateTimeFormatter.ofPattern(pattern);
+
+    public long now() {
+        return System.currentTimeMillis();
     }
 
-    public void main(String[] args) {
-        System.out.println(toLocalDate(new Date()).getMonthValue());
+    public Date longToDate(Long timestamp) {
+        return new Date(timestamp);
     }
+
+    public LocalDate longToLocalDate(Long timestamp) {
+        return Instant.ofEpochMilli(timestamp).atZone(ZoneOffset.systemDefault()).toLocalDate();
+    }
+
+    /**
+     * timesString 为null，或是格式不对则报错
+     *
+     * @param timesString 如下格式：yyyy-MM-dd hh:mm:ss
+     * @return
+     */
+    public LocalDateTime toLocalDateTime(@Nonnull String timesString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        return LocalDateTime.parse(timesString, formatter);
+    }
+
+    public LocalDateTime longToLocalDateTime(Long timestamp) {
+        return Instant.ofEpochMilli(timestamp).atZone(ZoneOffset.systemDefault()).toLocalDateTime();
+    }
+
+    public LocalDateTime lastSecondToday() {
+        return LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 59, 59));
+    }
+
+    public LocalTime lastSecond() {
+        return LocalTime.of(23, 59, 59);
+    }
+
+    public String toTimeStr(Long timestamp) {
+        return Instant.ofEpochMilli(timestamp)
+                .atZone(ZoneOffset.systemDefault())
+                .toLocalDateTime()
+                .format(PATTERN_YMD_HMS);
+    }
+
+    /**
+     * 时间格式 yyyy-MM-dd hh:mm:ss
+     *
+     * @param localDateTime 如果为null，则报错
+     * @return yyyy-MM-dd hh:mm:ss
+     */
+    public String toTimeStr(@Nonnull LocalDateTime localDateTime) {
+        return localDateTime.format(PATTERN_YMD_HMS);
+    }
+
 }
