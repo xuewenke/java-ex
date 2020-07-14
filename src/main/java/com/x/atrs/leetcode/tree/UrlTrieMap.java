@@ -27,25 +27,11 @@ import java.util.Map;
 @Builder
 @AllArgsConstructor
 public class UrlTrieMap {
-
     TrieNode root;
 
     public UrlTrieMap() {
         root = new TrieNode("/");
     }
-
-    public static void main(String[] args) {
-        UrlTrieMap urlPathTrie = new UrlTrieMap();
-        String url = "get/pam/v1/identity/users";
-        String url2 = "post/pam/v1/identity/users";
-        String url3 = "delete/pam/v1/identity/users/{id}";
-        urlPathTrie.insert(url, "add");
-        urlPathTrie.insert(url2, "post");
-        urlPathTrie.insert(url3, "delete");
-        System.out.println(JSONObject.toJSONString(urlPathTrie.getRoot()));
-        System.out.println(urlPathTrie.getPrivilege(url));
-    }
-
 
     /**
      * 插入url
