@@ -21,6 +21,12 @@ public class StringRegularUtil {
      */
     private final Pattern LINE_BREAK_PATTERN = Pattern.compile("[\r\n]");
 
+    /**
+     * 匹配花括号 {xx}
+     * 如果字符串出现多个 {} 如 123{3234}/{234} 则匹配的是  “{” + "3234}/{234" + "}"
+     */
+    private final Pattern BRACES = Pattern.compile("\\{[\\S\\s]+\\}");
+
 
     /**
      * 字符串有换行符，处理成不换自的字符换，换行符号替换为 “ ”
@@ -35,5 +41,4 @@ public class StringRegularUtil {
         Matcher m = LINE_BREAK_PATTERN.matcher(content);
         return m.replaceAll(" ");
     }
-
 }
