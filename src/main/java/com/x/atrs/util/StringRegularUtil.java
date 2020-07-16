@@ -41,4 +41,22 @@ public class StringRegularUtil {
         Matcher m = LINE_BREAK_PATTERN.matcher(content);
         return m.replaceAll(" ");
     }
+
+    /**
+     * 获取匹配次数
+     *
+     * @param content
+     * @param regex   正则表达式
+     * @return
+     */
+    public int matchCount(String content, String regex) {
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(content);
+        int count = 0;
+        while (m.find()) {
+            count++;
+        }
+        return count;
+    }
+
 }
