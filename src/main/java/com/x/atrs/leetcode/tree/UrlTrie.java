@@ -1,16 +1,7 @@
 
-/*
- * @Copyright 2014-2020 云安宝 (www.yunanbao.com.cn).
- *
- * 注意：本内容仅限于深圳云安宝科技有限公司内部传阅，禁止外泄以及用于其他商业目的
- *
- */
-
 package com.x.atrs.leetcode.tree;
 
-import com.alibaba.fastjson.JSONObject;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.commons.collections.MapUtils;
@@ -23,14 +14,17 @@ import java.util.Map;
  * @author xuewenke
  * @since 2020/7/14 2:10 下午
  */
-@Data
-@Builder
-@AllArgsConstructor
-public class UrlTrieMap {
-    TrieNode root;
+public class UrlTrie {
+    private final TrieNode root;
 
-    public UrlTrieMap() {
+    private static final UrlTrie urlTrie = new UrlTrie();
+
+    private UrlTrie() {
         root = new TrieNode("/");
+    }
+
+    public static UrlTrie getInstance() {
+        return urlTrie;
     }
 
     /**
@@ -39,14 +33,19 @@ public class UrlTrieMap {
      * @param url
      * @param privilege
      */
-    public void insert(String url, String privilege) {
+    public void insert(String url, PrivilegeEnum privilege) {
         root.insertUrl(url, privilege);
     }
 
-    public String getPrivilege(String url) {
-        TrieNode endNode = root.getEndNode(url);
+    /**
+     * 根据url获取权限
+     *
+     * @param url
+     * @return
+     */
+    public PrivilegeEnum getPrivilege(String url) {
+        TrieNode endNode = root.getUrlEndNode(url);
         if (endNode != null) {
-            System.out.println(JSONObject.toJSONString(endNode));
             return endNode.getPrivilege();
         }
         return null;
@@ -57,6 +56,9 @@ public class UrlTrieMap {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class TrieNode {
+        /**
+         * url节点名称
+         */
         private String name;
         /**
          * 用来标记是否结束节点
@@ -66,34 +68,40 @@ public class UrlTrieMap {
         /**
          * 权限枚举
          */
-        private String privilege;
+        private PrivilegeEnum privilege;
 
         /**
          * 子节点用map实现,方便查找
          */
-        private Map<String, TrieNode> childNode;
+        private Map<String, TrieNode> childNodeMap;
 
         public TrieNode(String name) {
             this.name = name;
-            this.childNode = new HashMap<>(16);
+            this.childNodeMap = new HashMap<>(16);
         }
 
-        public static TrieNode createEndNode(String name, String privilege) {
+        public static TrieNode createEndNode(String name, PrivilegeEnum privilege) {
             return new TrieNode(name, true, privilege, new HashMap<>(16));
         }
 
-        public void insertUrl(String url, String privilege) {
-            String[] units = url.split("/");
+        public void insertUrl(String url, PrivilegeEnum privilege) {
+            String[] units = urlSplit(url);
             TrieNode searchNode = this;
             int length = units.length;
             for (int i = 0; i < units.length; i++) {
                 String unit = units[i];
                 TrieNode node = searchNode.searchChildNode(unit);
                 if (node != null) {
-                    searchNode = node;
+                    if (isEndUnit(length, i)) {
+                        // 是尾节点但还有子节点的情况
+                        node.setEndNode(true);
+                        node.setPrivilege(privilege);
+                    } else {
+                        searchNode = node;
+                    }
                 } else {
                     TrieNode childNode;
-                    if (isEnd(length, i)) {
+                    if (isEndUnit(length, i)) {
                         childNode = createEndNode(unit, privilege);
                     } else {
                         childNode = new TrieNode(unit);
@@ -104,8 +112,14 @@ public class UrlTrieMap {
             }
         }
 
-        public TrieNode getEndNode(String url) {
-            String[] units = url.split("/");
+        /**
+         * 根据url查询末尾节点
+         *
+         * @param url
+         * @return
+         */
+        public TrieNode getUrlEndNode(String url) {
+            String[] units = urlSplit(url);
             TrieNode searchNode = this;
             for (String unit : units) {
                 if (searchNode == null) {
@@ -116,23 +130,31 @@ public class UrlTrieMap {
             return searchNode;
         }
 
-        private static boolean isEnd(int length, int i) {
-            return (length - 1) == i;
-        }
-
         private TrieNode searchChildNode(String name) {
             if (StringUtils.isEmpty(name)) {
                 return null;
             }
-            Map<String, TrieNode> childNodes = this.getChildNode();
+            Map<String, TrieNode> childNodes = this.getChildNodeMap();
             if (MapUtils.isEmpty(childNodes)) {
                 return null;
             }
-            return childNodes.get(name);
+            TrieNode childNode = this.childNodeMap.get(name);
+            if (childNode == null) {
+                childNode = this.childNodeMap.get("*");
+            }
+            return childNode;
         }
 
         private void addChildNode(TrieNode node) {
-            this.childNode.put(node.getName(), node);
+            this.childNodeMap.put(node.getName(), node);
+        }
+
+        private static boolean isEndUnit(int length, int i) {
+            return (length - 1) == i;
+        }
+
+        private static String[] urlSplit(String url) {
+            return url.split("/");
         }
     }
 }

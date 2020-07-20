@@ -1,11 +1,8 @@
-
-
 package com.x.atrs.leetcode.tree;
 
 /**
  * @author xuewenke
- * @since 2020/7/13 7:45 下午
+ * @since 2020/7/20 11:29 上午
  */
-public class Trie {
-
+public enum PrivilegeEnum {
 }
