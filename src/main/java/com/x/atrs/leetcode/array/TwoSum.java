@@ -5,6 +5,9 @@ package com.x.atrs.leetcode.array;
 import com.alibaba.fastjson.JSONObject;
 import lombok.experimental.UtilityClass;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author xuewenke
  * @since 2020/7/20 4:46 下午
@@ -27,12 +30,15 @@ public class TwoSum {
 
     public int[] twoSum(int[] numbers, int target) {
         int[] result = new int[2];
+        Map<Integer, Integer> numMap = new HashMap<>(16);
+        for (int i = 0; i < numbers.length; i++) {
+            numMap.put(numbers[i], i);
+        }
         for (int i = 0; i < numbers.length; i++) {
             int findTarget = target - numbers[i];
-            int startIndex = i + 1;
-            int findTargetIndex = findTarget(numbers, startIndex, findTarget);
-            if (findTargetIndex > 0) {
-                result[0] = startIndex;
+            Integer findTargetIndex = numMap.get(findTarget);
+            if (findTargetIndex != null) {
+                result[0] = i + 1;
                 result[1] = findTargetIndex + 1;
                 break;
             }
@@ -41,25 +47,14 @@ public class TwoSum {
     }
 
     /**
-     * 找到了则返回下标，没有找到则返回0
+     * [2,7,11,15]
+     * 9
      *
-     * @param numbers
-     * @param startIndex
-     * @param target
-     * @return
+     * @param args
      */
-    public int findTarget(int[] numbers, int startIndex, int target) {
-        for (int i = startIndex; i < numbers.length; i++) {
-            if (numbers[i] == target) {
-                return i;
-            }
-        }
-        return 0;
-    }
-
     public void main(String[] args) {
-        int[] numbers = {-1, 0};
-        int target = -1;
+        int[] numbers = {2, 7, 11, 15};
+        int target = 9;
         System.out.println(JSONObject.toJSONString(twoSum(numbers, target)));
 
     }
