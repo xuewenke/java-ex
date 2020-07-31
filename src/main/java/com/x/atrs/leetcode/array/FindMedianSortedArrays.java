@@ -27,24 +27,48 @@ public class FindMedianSortedArrays {
     }
 
     /**
-     * 合并两个有序的数组
+     * 合并两个有序的数组不去重
      *
      * @param nums1
      * @param nums2
      * @return
      */
     private int[] merge(int[] nums1, int[] nums2) {
-        if (nums1.length == 0) {
+        int l1 = nums1.length;
+        int l2 = nums2.length;
+
+        if (l1 == 0) {
             return nums2;
         }
-
-        if (nums2.length == 0) {
+        if (l2 == 0) {
             return nums1;
         }
-
-        int allLength = nums1.length + nums2.length;
+        int allLength = l1 + l2;
 
         int[] mergeNums = new int[allLength];
+
+        int p1 = 0;
+        int p2 = 0;
+
+        int p = 0;
+        for (int i = 0; i < allLength; i++) {
+            p = i;
+            if (p1 == l1 || p2 == l2) {
+                break;
+            }
+            mergeNums[i] = (nums1[p1] < nums2[p2]) ? nums1[p1++] : nums2[p2++];
+        }
+        if (p1 < l1) {
+
+        }
+
+        if (p2 < l2) {
+
+        }
+        for (int mergeNum : mergeNums) {
+            System.out.println(mergeNum);
+        }
+
 
         return mergeNums;
     }
@@ -94,6 +118,11 @@ public class FindMedianSortedArrays {
 
 
     public static void main(String[] args) {
-        System.out.println(findMedianSortedArrays(new int[]{1, 3, 5}, new int[]{2, 4, 6}));
+
+        int[] nums1 = {1, 3, 5};
+        int[] nums2 = {2, 4, 6};
+
+        findMedianSortedArrays(nums1, nums2);
+
     }
 }
