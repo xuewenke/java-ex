@@ -9,20 +9,6 @@ import org.bouncycastle.math.ec.ECPoint;
 import java.io.IOException;
 import java.math.BigInteger;
 
-/**
- * All rights Reserved, Designed By 云安宝
- *
- * @author xuewenke
- * @version V3.0
- * @Package util.encryption.sm2
- * @Description (用一句话描述该文件做什么)
- * @date 2019-02-14 16:03
- * @Copyright 2019 www.yunanbao.com.cn Inc. All rights reserved.
- * <p>
- * <p>
- * <p>
- * 注意：本内容仅限于深圳云安宝科技有限公司内部传阅，禁止外泄以及用于其他商业目的
- */
 public class SM2Utils {
 
     //生成随机秘钥对
