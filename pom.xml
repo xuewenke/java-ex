@@ -79,6 +79,13 @@
             <artifactId>jackson-core</artifactId>
             <version>2.10.1</version>
         </dependency>
+
+        <!--  国密依赖      -->
+        <dependency>
+            <groupId>de.idyl</groupId>
+            <artifactId>winzipaes</artifactId>
+            <version>1.0.1</version>
+        </dependency>
     </dependencies>
 
     <build>

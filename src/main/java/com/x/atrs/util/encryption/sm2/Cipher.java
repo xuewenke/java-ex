@@ -1,12 +1,12 @@
 package com.x.atrs.util.encryption.sm2;
 
 
+import com.x.atrs.util.encryption.sm3.SM3Digest;
+import com.x.atrs.util.encryption.sm4.Util;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
 import org.bouncycastle.crypto.params.ECPrivateKeyParameters;
 import org.bouncycastle.crypto.params.ECPublicKeyParameters;
 import org.bouncycastle.math.ec.ECPoint;
-import util.encryption.sm3.SM3Digest;
-import util.encryption.sm4.Util;
 
 import java.math.BigInteger;
 

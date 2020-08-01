@@ -1,6 +1,7 @@
 package com.x.atrs.util.encryption.sm3;
 
-import util.encryption.sm4.Util;
+
+import com.x.atrs.util.encryption.sm4.Util;
 
 /**
  * All rights Reserved, Designed By 云安宝
