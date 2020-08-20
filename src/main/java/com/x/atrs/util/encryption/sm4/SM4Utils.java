@@ -186,20 +186,20 @@ public class SM4Utils {
         System.out.println("明文: " + plainText);
         System.out.println("");
 
-//        System.out.println("CBC模式加密");
-//        String iv = "UISwD9fW6cFh9SNS";
-//        cipherText = sm4.encryptData_CBC(plainText, iv);
-//        System.out.println("密文: " + cipherText);
-//        System.out.println("");
-//
-//        plainText = sm4.decryptData_CBC(cipherText, iv);
-//        System.out.println("明文: " + plainText);
+        System.out.println("CBC模式加密");
+        String iv = "UISwD9fW6cFh9SNS";
+        cipherText = sm4.encryptData_CBC(plainText, iv);
+        System.out.println("密文: " + cipherText);
+        System.out.println("");
 
-//        System.out.println("CBC模式解密");
-//        System.out.println("密文：4esGgDn/snKraRDe6uM0jQ==");
-//        String cipherText2 = "4esGgDn/snKraRDe6uM0jQ==";
-//        plainText = sm4.decryptData_CBC(cipherText2, iv);
-//        System.out.println("明文: " + plainText);
+        plainText = sm4.decryptData_CBC(cipherText, iv);
+        System.out.println("明文: " + plainText);
+
+        System.out.println("CBC模式解密");
+        System.out.println("密文：4esGgDn/snKraRDe6uM0jQ==");
+        String cipherText2 = "4esGgDn/snKraRDe6uM0jQ==";
+        plainText = sm4.decryptData_CBC(cipherText2, iv);
+        System.out.println("明文: " + plainText);
     }
 
 
