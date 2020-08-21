@@ -202,6 +202,7 @@ public class OshiUtil {
         }
         cpuInfo.setFree(Double.parseDouble(format.format(idle <= 0 ? 0 : (100d * idle / totalCpu))));
         cpuInfo.setCpuModel(processor.toString());
+        cpuInfo.setUsageRate(Double.parseDouble(format.format((100D - cpuInfo.getFree()))));
         return cpuInfo;
     }
 }

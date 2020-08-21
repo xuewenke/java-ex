@@ -40,10 +40,22 @@ public class CpuInfo {
     private double free;
 
     /**
+     * cpu 当前使用率
+     */
+    private double usageRate;
+
+    /**
      * CPU型号信息
      */
     private String cpuModel;
 
+    public double getUsageRate() {
+        return usageRate;
+    }
+
+    public void setUsageRate(double usageRate) {
+        this.usageRate = usageRate;
+    }
 
     public CpuInfo() {
     }
