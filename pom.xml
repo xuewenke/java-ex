@@ -88,12 +88,20 @@
         </dependency>
 
 
-        <!--        oshi  https://github.com/oshi/oshi-->
+        <!--oshi  https://github.com/oshi/oshi-->
         <dependency>
             <groupId>com.github.oshi</groupId>
             <artifactId>oshi-core</artifactId>
             <version>5.2.4</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>5.0.0.Alpha2</version>
+        </dependency>
+
 
     </dependencies>
 
