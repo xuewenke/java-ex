@@ -1,5 +1,5 @@
 
-package com.x.atrs.util;
+package com.x.atrs.util.string;
 
 import lombok.experimental.UtilityClass;
 

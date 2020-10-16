@@ -1,6 +1,8 @@
 
 package com.x.atrs.util;
 
+import com.x.atrs.util.net.FtpConfig;
+import com.x.atrs.util.net.FtpUtil;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -13,7 +15,7 @@ import java.io.File;
 public class FtpUtilTest {
 
 
-    private  FtpConfig config;
+    private FtpConfig config;
 
     @BeforeTest
     public void intiConfig() {

@@ -2,6 +2,7 @@
 
 package com.x.atrs.util;
 
+import com.x.atrs.util.string.StringRegularUtil;
 import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
 
