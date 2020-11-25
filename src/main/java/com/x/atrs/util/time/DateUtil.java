@@ -4,15 +4,15 @@ package com.x.atrs.util.time;
 import lombok.experimental.UtilityClass;
 
 import javax.annotation.Nonnull;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author xuewenke
@@ -20,25 +20,7 @@ import java.util.Date;
 @UtilityClass
 public class DateUtil {
 
-    public SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-    /**
-     * timeStr yyyy-MM-dd HH:mm:ss
-     * 不做显示异常是为了对调用方友好，但是真除了错误还是要中断程序的。
-     * 切忌不要返回null。万一调用放直接使用你的null值，但没有报错的情况下，就会造成业务数据的异常。
-     * 比如创建时间，修改时间，要是数据库允许为空的话，就会有问题了。
-     *
-     * @return
-     */
-    public Date toDate(String timeStr) {
-        try {
-            return sdf.parse(timeStr);
-        } catch (Exception e) {
-            throw new IllegalArgumentException("传入参数错误：" + timeStr);
-        }
-    }
-
-    private final String pattern = "yyyy-MM-dd HH:mm:ss";
+    public final String pattern = "yyyy-MM-dd HH:mm:ss";
     private final DateTimeFormatter PATTERN_YMD_HMS = DateTimeFormatter.ofPattern(pattern);
 
     public long now() {
@@ -50,7 +32,7 @@ public class DateUtil {
     }
 
     public LocalDate longToLocalDate(Long timestamp) {
-        return Instant.ofEpochMilli(timestamp).atZone(ZoneOffset.systemDefault()).toLocalDate();
+        return Instant.ofEpochMilli(timestamp).atZone(ZoneId.systemDefault()).toLocalDate();
     }
 
     /**
@@ -64,8 +46,12 @@ public class DateUtil {
         return LocalDateTime.parse(timesString, formatter);
     }
 
+    public LocalDateTime toLocalDateTime(@Nonnull Date date) {
+        return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+    }
+
     public LocalDateTime longToLocalDateTime(Long timestamp) {
-        return Instant.ofEpochMilli(timestamp).atZone(ZoneOffset.systemDefault()).toLocalDateTime();
+        return Instant.ofEpochMilli(timestamp).atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
 
     public Date toDate(LocalDateTime localDateTime) {
@@ -82,7 +68,7 @@ public class DateUtil {
 
     public String toTimeStr(Long timestamp) {
         return Instant.ofEpochMilli(timestamp)
-                .atZone(ZoneOffset.systemDefault())
+                .atZone(ZoneId.systemDefault())
                 .toLocalDateTime()
                 .format(PATTERN_YMD_HMS);
     }
@@ -95,6 +81,19 @@ public class DateUtil {
      */
     public String toTimeStr(@Nonnull LocalDateTime localDateTime) {
         return localDateTime.format(PATTERN_YMD_HMS);
+    }
+
+    /**
+     * 给定一个时间区间，随机返回一个区间内的时间
+     *
+     * @param begin
+     * @param end
+     * @return
+     */
+    public LocalTime getRandomBetween(LocalTime begin, LocalTime end) {
+        long untilMinutesChange = begin.until(end, ChronoUnit.MINUTES);
+        long randomMinutes = ThreadLocalRandom.current().nextLong(untilMinutesChange);
+        return begin.plusMinutes(randomMinutes);
     }
 
 }
