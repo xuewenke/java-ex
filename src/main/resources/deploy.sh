@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=jar包的位置 -DgroupId=com.x.arts -DartifactId=artifactId -Dversion=version -Dpackaging=jar
