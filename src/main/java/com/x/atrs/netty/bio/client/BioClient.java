@@ -28,8 +28,6 @@ public class BioClient {
         }
     }
 
-    k
-
     private static void sendMessage(Socket socket, String message) {
         OutputStream out = null;
         try {
