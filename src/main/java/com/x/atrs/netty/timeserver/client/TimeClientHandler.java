@@ -13,8 +13,6 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
-import java.nio.charset.StandardCharsets;
-
 /**
  * @author xuewenke
  * @since 2020/12/23 下午7:03
@@ -25,7 +23,7 @@ public class TimeClientHandler extends ChannelInboundHandlerAdapter {
 
 
     public TimeClientHandler() {
-        byte[] req = "query time".getBytes();
+        byte[] req = ("query time" + System.getProperty("line.separator")).getBytes();
         firstMessage = Unpooled.buffer(req.length);
         firstMessage.writeBytes(req);
     }
@@ -37,11 +35,11 @@ public class TimeClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ByteBuf buf = (ByteBuf) msg;
-        byte[] req = new byte[buf.readableBytes()];
-        buf.readBytes(req);
-        String body = new String(req, StandardCharsets.UTF_8);
-
+//        ByteBuf buf = (ByteBuf) msg;
+//        byte[] req = new byte[buf.readableBytes()];
+//        buf.readBytes(req);
+//        String body = new String(req, StandardCharsets.UTF_8);
+        String body = (String) msg;
         System.out.println("time " + body);
     }
 
